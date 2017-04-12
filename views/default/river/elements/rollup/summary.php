@@ -53,15 +53,23 @@ $story_link = elgg_view('output/url', array(
 $action = $item->action_type;
 $type = $item->type;
 $subtype = $item->subtype ? $item->subtype : 'default';
+$view = $item->view;
 
-// check summary translation keys.
-// will use the $type:$subtype if that's defined, otherwise just uses $type:default
-$key = "river:$action:$type:$subtype";
-$summary = elgg_echo($key, array($subject_link, $story_link));
+$keys = [
+	"river:$action:$type:$subtype",
+	"river:$action:$type",
+	"river:$action:$type:default",
+];
 
-if ($summary == $key) {
-	$key = "river:$action:$type:default";
-	$summary = elgg_echo($key, array($subject_link, $story_link));
+foreach ($keys as $key) {
+	if (elgg_language_key_exists($key)) {
+		$summary = elgg_echo($key, array($subject_link, $story_link));
+		break;
+	}
+}
+
+if (!$summary) {
+	$summary = $subject_link;
 }
 
 echo $summary;
