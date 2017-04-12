@@ -3,7 +3,7 @@
 $item = elgg_extract('item', $vars);
 
 $related_items = false;
-if ($item instanceof \hypeJunction\Feed\FeedItem) {
+if ($item instanceof \hypeJunction\Feed\FeedItem && $item->action_type != 'create') {
 	$related_items = $item->getRelatedItems();
 }
 

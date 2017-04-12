@@ -39,7 +39,8 @@ if ($user_count > 1) {
 
 if ($item->story_guid && $item->story_guid != $item->object_guid) {
 	$story = get_entity($item->story_guid);
-} else {
+}
+if (!$story) {
 	$story = $item->getObjectEntity();
 }
 
@@ -51,14 +52,14 @@ $story_link = elgg_view('output/url', array(
 ));
 
 $action = $item->action_type;
-$type = $item->type;
-$subtype = $item->subtype ? $item->subtype : 'default';
-$view = $item->view;
+$type = $story->getType();
+$subtype = $story->getSubtype() ? : 'default';
 
 $keys = [
 	"river:$action:$type:$subtype",
-	"river:$action:$type",
 	"river:$action:$type:default",
+	"river:$action:$type",
+	"river:$action:default",
 ];
 
 foreach ($keys as $key) {

@@ -236,7 +236,7 @@ class FeedTable {
 
 		$distinct = $options['distinct'] ? "DISTINCT" : "";
 
-		$query = "SELECT $distinct rv.*$selects FROM {$dbprefix}feeds rv ";
+		$query = "SELECT $distinct rv.*$selects FROM (SELECT * FROM {$dbprefix}feeds ORDER BY posted DESC) rv ";
 
 		if ($options['joins']) {
 			$query .= implode(' ', $options['joins']);

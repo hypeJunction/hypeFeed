@@ -26,5 +26,12 @@ return [
 	'river:stream:like:object:default' => '%s liked %s',
 	'river:create:object:comment' => '%s commented on %s',
 	'river:create:object:discussion_reply' => '%s replied on the discussion topic %s',
-	'river:reply:object:default' => '%s replied to %s',
+	'river:create:default' => '%s posted %s',
+	'river:reply:default' => '%s replied to %s',
+	'river:vote:default' => '%s voted in %s',
+	'river:complete:default' => '%s complete in %s',
+	'river:join:default' => '%s joined %s',
+	'river:tag:default' => '%s tagged %s',
+	'river:friend:default' => '%s connected with %s',
+	
 ];
