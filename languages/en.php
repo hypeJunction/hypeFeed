@@ -23,4 +23,8 @@ return [
 	'feed:aggregation_interval:week' => '1 week',
 	'feed:aggregation_interval:month' => '1 month',
 
+	'river:stream:like:object:default' => '%s liked %s',
+	'river:create:object:comment' => '%s commented on %s',
+	'river:create:object:discussion_reply' => '%s replied on the discussion topic %s',
+	'river:reply:object:default' => '%s replied to %s',
 ];
