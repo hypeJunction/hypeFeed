@@ -1,0 +1,43 @@
+<?php
+
+namespace hypeJunction\Interactions;
+
+$item = $vars['item'];
+
+$object = $item->getObjectEntity();
+$subject = $item->getSubjectEntity();
+
+$subject_link = elgg_view('output/url', array(
+	'href' => $subject->getURL(),
+	'text' => $subject->name,
+	'class' => 'elgg-river-subject',
+	'is_trusted' => true,
+		));
+
+$object_link = elgg_view('output/url', array(
+	'href' => $object->getURL(),
+	'text' => $object->getDisplayName(),
+	'class' => 'elgg-river-object',
+	'is_trusted' => true,
+		));
+
+$type = $object->getType();
+$subtype = $object->getSubtype() ? $object->getSubtype() : 'default';
+$key = "interactions:like:$type:$subtype";
+$summary = elgg_echo($key, array($subject_link, $object_link));
+if ($summary == $key) {
+	$key = "interactions:like:$type:default";
+	$summary = elgg_echo($key, array($subject_link, $object_link));
+}
+
+$rollup = elgg_view('river/elements/layout', array(
+	'item' => $vars['item'],
+	'summary' => $summary,
+	'message' => elgg_view('river/elements/rollup/original', $vars),
+	'attachments' => false,
+	'responses' => false,
+));
+
+echo elgg_format_element('div', [
+	'class' => 'elgg-river-nest',
+		], $rollup);
