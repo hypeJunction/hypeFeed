@@ -161,10 +161,10 @@ class FeedTable {
 			$interval = elgg_get_plugin_setting('hypeRiver', 'aggregation_interval', 'day');
 			switch ($interval) {
 				case 'hour' :
-					$group_by_interval = "HOUR(FROM_UNIXTIME(rv.posted))";
+					$group_by_interval = "FLOR(MINUTE(FROM_UNIXTIME(rv.posted))) / 60";
 					break;
 				case 'three_hours' :
-					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))/3)";
+					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted)) / 3)";
 					break;
 				case 'six_hours' :
 					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))/6)";
@@ -174,13 +174,13 @@ class FeedTable {
 					break;
 				case 'day' :
 				default :
-					$group_by_interval = "DAY(FROM_UNIXTIME(rv.posted))";
+					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))) / 24";
 					break;
 				case 'week' :
-					$group_by_interval = "WEEK(FROM_UNIXTIME(rv.posted))";
+					$group_by_interval = "FLOOR(DAY(FROM_UNIXTIME(rv.posted))) / 7";
 					break;
 				case 'month' :
-					$group_by_interval = "MONTH(FROM_UNIXTIME(rv.posted))";
+					$group_by_interval = "FlOOR(FROM_UNIXTIME(rv.posted))) / 30";
 					break;
 			}
 
