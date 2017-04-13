@@ -24,6 +24,9 @@ return [
 	'feed:aggregation_interval:month' => '1 month',
 
 	'river:stream:like:object:default' => '%s liked %s',
+	'river:stream:rating:object:default' => '%s rated %s',
+	'river:stream:rating:object:comment' => '%s rated a comment on %s',
+	'river:stream:rating:object:discussion_reply' => '%s rated a discussion reply on %s',
 	'river:create:object:comment' => '%s commented on %s',
 	'river:create:object:discussion_reply' => '%s replied on the discussion topic %s',
 	'river:create:default' => '%s posted %s',
@@ -33,5 +36,20 @@ return [
 	'river:join:default' => '%s joined %s',
 	'river:tag:default' => '%s tagged %s',
 	'river:friend:default' => '%s connected with %s',
-	
+
+	'river:story:default' => 'Post by %s',
+	'river:story:object:file' => 'File by %s',
+	'river:story:object:bookmarks' => 'Bookmark by %s',
+	'river:story:object:blog' => 'Blog post by %s',
+	'river:story:object:thewire' => 'Wire post by %s',
+	'river:story:object:page' => 'Page by %s',
+	'river:story:object:page_top' => 'Page by %s',
+	'river:story:object:hjwall' => '%s',
+	'river:story:object:comment' => 'Comment by %s',
+	'river:story:object:discussion' => 'Discussion topic by %s',
+	'river:story:object:discussion_reply' => 'Reply by %s',
+
+	'river:read:less' => 'Read less',
+	'river:read:more' => 'Read more',
+
 ];

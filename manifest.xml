@@ -21,9 +21,9 @@
 		<version>2.3</version>
 	</requires>
 
-	<suggests>
+	<requires>
 		<type>plugin</type>
 		<name>hypeInteractions</name>
-	</suggests>
+	</requires>
 
 </plugin_manifest>

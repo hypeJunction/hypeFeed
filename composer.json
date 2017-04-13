@@ -23,10 +23,8 @@
     },
     "require": {
         "php": ">=5.5",
-        "composer/installers": "~1.0"
-    },
-    "required-dev": {
-        "elgg/elgg": "~2.3"
+        "composer/installers": "~1.0",
+        "bower-asset/readmore-js": "~2.2.0"
     },
     "autoload": {
         "psr-0": {
