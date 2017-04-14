@@ -160,34 +160,34 @@ class FeedTable {
 		$options['order_by'] = (array) $options['order_by'];
 
 		if (empty($options['ids'])) {
-			$interval = elgg_get_plugin_setting('hypeRiver', 'aggregation_interval', 'day');
+			$interval = elgg_get_plugin_setting('aggregation_interval', 'hypeFeed', 'day');
 			switch ($interval) {
 				case 'hour' :
-					$group_by_interval = "HOUR(FROM_UNIXTIME(rv.posted))";
+					$group_by_interval = "TIMESTAMPDIFF(HOUR, FROM_UNIXTIME(rv.posted), NOW())";
 					break;
 				case 'three_hours' :
-					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted)) / 3)";
+					$group_by_interval = "TIMESTAMPDIFF(HOUR, FROM_UNIXTIME(rv.posted), NOW()) DIV 3";
 					break;
 				case 'six_hours' :
-					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))/6)";
+					$group_by_interval = "TIMESTAMPDIFF(HOUR, FROM_UNIXTIME(rv.posted), NOW()) DIV 6";
 					break;
 				case 'twelve_hours' :
-					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))/12)";
+					$group_by_interval = "TIMESTAMPDIFF(HOUR, FROM_UNIXTIME(rv.posted), NOW()) DIV 12";
 					break;
 				case 'day' :
 				default :
-					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted))) / 24";
+					$group_by_interval = "TIMESTAMPDIFF(DAY, FROM_UNIXTIME(rv.posted), NOW())";
 					break;
 				case 'week' :
-					$group_by_interval = "FLOOR(DAY(FROM_UNIXTIME(rv.posted))) / 7";
+					$group_by_interval = "TIMESTAMPDIFF(WEEK, FROM_UNIXTIME(rv.posted), NOW())";
 					break;
 				case 'month' :
-					$group_by_interval = "FlOOR(FROM_UNIXTIME(rv.posted))) / 30";
+					$group_by_interval = "TIMESTAMPDIFF(MONTH, FROM_UNIXTIME(rv.posted), NOW())";
 					break;
 			}
-
-			$options['group_by'] = "rv.story_guid, $group_by_interval";
-			$options['selects'][] = "GROUP_CONCAT(rv.id) AS related_ids";
+			
+			$options['group_by'] = "rv.story_guid, group_interval";
+			$options['selects'][] = "GROUP_CONCAT(rv.id) AS related_ids, $group_by_interval AS group_interval";
 		}
 
 		if ($options['batch'] && !$options['count']) {
