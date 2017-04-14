@@ -35,8 +35,8 @@ $vars = elgg_trigger_plugin_hook('elements', 'river', $vars, $vars);
 $vars['time'] = elgg_view('river/elements/time', $vars);
 $vars['image'] = elgg_view('river/elements/image', $vars);
 $vars['summary'] = elgg_view('river/elements/summary', $vars);
-$vars['message'] = elgg_view('river/elements/message', $vars);
 $vars['attachments'] = elgg_view('river/elements/attachments', $vars);
+$vars['message'] = elgg_view('river/elements/message', $vars);
 $vars['responses'] = elgg_view('river/elements/responses', $vars);
 
 $header = elgg_view('river/elements/header', $vars);

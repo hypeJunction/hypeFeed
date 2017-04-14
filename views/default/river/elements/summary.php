@@ -38,10 +38,9 @@ if (!isset($summary)) {
 		$subject_link .= elgg_echo('feed:subject:others', [$user_count - 1]);
 	}
 
-	if ($item->story_guid && $item->story_guid != $item->object_guid) {
-		$story = get_entity($item->story_guid);
-	} else {
-		$story = $item->getObjectEntity();
+	$story = $object;
+	while ($story instanceof ElggComment) {
+		$story = $story->getContainerEntity();
 	}
 
 	$story_link = elgg_view('output/url', array(

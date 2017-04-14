@@ -7,7 +7,7 @@ if (!$item instanceof ElggRiverItem) {
 
 $message = elgg_extract('message', $vars);
 
-if (!isset($message)) {
+if (!isset($message) && !$vars['attachments']) {
 	$object = $item->getObjectEntity();
 	$message = elgg_view('output/longtext', [
 		'class' => 'elgg-river-object-description',

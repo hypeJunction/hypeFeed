@@ -157,11 +157,13 @@ class FeedTable {
 			$options['wheres'][] = "rv.owner_guid = $owner->guid";
 		}
 
+		$options['order_by'] = (array) $options['order_by'];
+
 		if (empty($options['ids'])) {
 			$interval = elgg_get_plugin_setting('hypeRiver', 'aggregation_interval', 'day');
 			switch ($interval) {
 				case 'hour' :
-					$group_by_interval = "FLOR(MINUTE(FROM_UNIXTIME(rv.posted))) / 60";
+					$group_by_interval = "HOUR(FROM_UNIXTIME(rv.posted))";
 					break;
 				case 'three_hours' :
 					$group_by_interval = "FLOOR(HOUR(FROM_UNIXTIME(rv.posted)) / 3)";
@@ -252,7 +254,7 @@ class FeedTable {
 		}
 
 		if (!$options['count']) {
-			$options['order_by'] = sanitise_string($options['order_by']);
+			$options['order_by'] = sanitise_string(implode(', ', $options['order_by']));
 			$query .= " ORDER BY {$options['order_by']}";
 
 			if ($options['limit']) {
@@ -299,7 +301,7 @@ class FeedTable {
 			$owner_guids[] = $annotation->entity_guid;
 			$object = $annotation->getEntity();
 		} else {
-			$object = $item->getObjectEntity();
+			$object = \hypeJunction\Interactions\InteractionsService::getRiverObject($item);
 		}
 
 		$story = $object;
@@ -351,9 +353,9 @@ class FeedTable {
 			$params = [
 				':owner_guid' => (int) $owner_guid,
 				':story_guid' => $story ? (int) $story->guid : 0,
-				':object_guid' => (int) $object->guid,
-				':subject_guid' => (int) $subject->guid,
-				':target_guid' => (int) $target->guid,
+				':object_guid' => (int) $item->object_guid,
+				':subject_guid' => (int) $item->subject_guid,
+				':target_guid' => (int) $item->target_guid,
 				':action_type' => (string) $item->action_type,
 				':annotation_id' => (int) $item->annotation_id,
 				':posted' => (int) $item->posted,

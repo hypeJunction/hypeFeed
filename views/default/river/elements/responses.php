@@ -6,10 +6,15 @@ if (!$item instanceof ElggRiverItem) {
 }
 
 $responses = elgg_extract('responses', $vars);
+if (is_string($responses)) {
+	$responses = trim($responses);
+}
 
-if (!isset($responses)) {
-	$object = $item->getObjectEntity();
-	$responses = elgg_view_comments($object);
+if (!$responses && $responses !== false) {
+	$object = hypeJunction\Interactions\InteractionsService::getRiverObject($item);
+	if ($object instanceof ElggObject) {
+		$responses = elgg_view_comments($object);
+	}
 }
 
 if (!$responses) {

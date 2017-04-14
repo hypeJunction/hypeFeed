@@ -8,16 +8,18 @@ if (!$item instanceof ElggRiverItem) {
 $story = elgg_extract('story', $vars);
 if (!isset($story)) {
 	if ($item->story_guid && $item->story_guid != $item->object_guid) {
-		$story = get_entity($item->story_guid);
+		$object = get_entity($item->story_guid);
 	} else {
-		$object = $item->getObjectEntity();
-		while ($object instanceof ElggComment) {
-			$object = $object->getContainerEntity();
-		}
-		$story = $object;
+		$object = hypeJunction\Interactions\InteractionsService::getRiverObject($item);
 	}
 
-	if ($story->river_id) {
+	while ($object instanceof ElggComment) {
+		$object = $object->getContainerEntity();
+	}
+
+	$story = $object;
+
+	if ($story->river_id && $story->river_id != $item->id) {
 		$river = elgg_get_river([
 			'ids' => [(int) $story->river_id],
 			'limit' => 1,
