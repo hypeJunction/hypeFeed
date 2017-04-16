@@ -6,6 +6,7 @@ if (!$item instanceof ElggRiverItem) {
 }
 
 $vars['time'] = elgg_view('river/elements/story/time', $vars);
+$vars['menu'] = elgg_view('river/elements/story/menu', $vars);
 $vars['image'] = elgg_view('river/elements/story/image', $vars);
 $vars['summary'] = elgg_view('river/elements/story/summary', $vars);
 $vars['message'] = elgg_view('river/elements/story/message', $vars);

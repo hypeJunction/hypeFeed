@@ -7,10 +7,7 @@ if (!$item instanceof ElggRiverItem) {
 
 elgg_require_js('river/readmore');
 
-$related_items = false;
-if ($item instanceof \hypeJunction\Feed\FeedItem && $item->action_type != 'create') {
-	$related_items = $item->getRelatedItems();
-}
+$related_items = elgg_extract('related_items', $vars, $item->related_items);
 
 $object = $item->getObjectEntity();
 
@@ -33,6 +30,7 @@ if ($related_items || elgg_extract('story', $vars)) {
 $vars = elgg_trigger_plugin_hook('elements', 'river', $vars, $vars);
 
 $vars['time'] = elgg_view('river/elements/time', $vars);
+$vars['menu'] = elgg_view('river/elements/menu', $vars);
 $vars['image'] = elgg_view('river/elements/image', $vars);
 $vars['summary'] = elgg_view('river/elements/summary', $vars);
 $vars['attachments'] = elgg_view('river/elements/attachments', $vars);
@@ -40,9 +38,10 @@ $vars['message'] = elgg_view('river/elements/message', $vars);
 $vars['responses'] = elgg_view('river/elements/responses', $vars);
 
 $header = elgg_view('river/elements/header', $vars);
+$related = elgg_view('river/elements/related', $vars);
 $body = elgg_view('river/elements/body', $vars);
 $footer = elgg_view('river/elements/footer', $vars);
 
 echo elgg_format_element('div', [
 	'class' => $class,
-], $header . $body . $footer);
+], $header . $related . $body . $footer);

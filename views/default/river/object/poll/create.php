@@ -1,13 +1,11 @@
 <?php
-/**
- * Poll river view
- */
 
-$object = $vars['item']->getObjectEntity();
+$item = elgg_extract('item', $vars);
 
-echo elgg_view('river/elements/layout', array(
-	'item' => $vars['item'],
-	'attachments' => elgg_view('poll/body', [
-		'entity' => $object,
-	]),
-));
+$object = $item->getObjectEntity();
+
+$vars['attachments'] = elgg_view('poll/body', [
+	'entity' => $object,
+		]);
+
+echo elgg_view('river/elements/layout', $vars);

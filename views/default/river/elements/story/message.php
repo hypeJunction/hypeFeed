@@ -1,5 +1,4 @@
 <?php
-
 $entity = elgg_extract('entity', $vars);
 if (!elgg_instanceof($entity)) {
 	return;
@@ -13,13 +12,16 @@ if (!isset($message)) {
 	]);
 	$message = elgg_format_element('div', [
 		'class' => 'elgg-read-more',
-	], $message);
+			], $message);
+
+	echo elgg_view('notifier/view_listener', array(
+		'entity' => $object,
+	));
 }
 
 if (!$message) {
 	return;
 }
-
 ?>
 <div class="elgg-river-message">
 	<?= $message ?>

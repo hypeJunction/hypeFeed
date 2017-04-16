@@ -5,10 +5,15 @@ if (!$item instanceof ElggRiverItem) {
 	return;
 }
 
-$menu = elgg_view_menu('river', array(
-	'item' => $item,
-	'sort_by' => 'priority',
-	'class' => 'elgg-menu-hz',
-));
+if (elgg_extract('rollup', $vars)) {
+	$menu = elgg_view('river/elements/story/menu', [
+		'entity' => $item->getObjectEntity(),
+	]);
+} else {
+	$menu = elgg_view_menu('river', $vars + [
+		'sort_by' => 'priority',
+		'class' => 'elgg-menu-hz',
+	]);
+}
 
 echo $menu;

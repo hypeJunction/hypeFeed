@@ -11,6 +11,7 @@
 require_once __DIR__ . '/autoloader.php';
 
 use hypeJunction\Feed\FeedService;
+use hypeJunction\Feed\Menus;
 use hypeJunction\Feed\Router;
 
 elgg_register_event_handler('init', 'system', function() {
@@ -25,6 +26,9 @@ elgg_register_event_handler('init', 'system', function() {
 	elgg_register_event_handler('update', 'all', [FeedService::class, 'entityUpdateHandler'], 999);
 	elgg_register_event_handler('delete', 'all', [FeedService::class, 'entityDeleteHandler'], 999);
 
+	elgg_register_plugin_hook_handler('register', 'menu:river', [Menus::class, 'setupRiverMenu'], 999);
+
+	elgg_extend_view('elgg.css', 'feed.css');
 });
 
 elgg_register_event_handler('upgrade', 'system', function() {

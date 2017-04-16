@@ -5,14 +5,14 @@ namespace hypeJunction\Feed;
 class FeedItem extends \ElggRiverItem {
 
 	protected $related_ids;
-
+	
 	public function __construct($object) {
 		if (!($object instanceof \stdClass)) {
 			throw new \InvalidParameterException("Invalid input to \ElggRiverItem constructor");
 		}
 
 		if (isset($object->related_ids)) {
-			$object->related_ids = explode(',', $object->related_ids);
+			$object->related_ids = array_unique(explode(',', $object->related_ids));
 		} else {
 			$object->related_ids = [];
 		}
@@ -45,17 +45,16 @@ class FeedItem extends \ElggRiverItem {
 	 * Returns related items in the roll
 	 *
 	 * @param array $options Options
-	 * @return type
+	 * @return ElggRiverItem[]|false
 	 */
 	public function getRelatedItems(array $options = []) {
-		$svc = FeedService::getInstance();
-
-		$options['owner'] = get_entity($this->owner_guid);
+		
+		$options['distinct'] = true;
 		$options['ids'] = $this->related_ids;
 		$options['limit'] = 0;
-		$options['wheres'][] = "rv.id != {$this->id}";
+		$options['order_by'] = "rv.posted DESC";
 
-		return $svc->getTable()->getAll($options);
+		return elgg_get_river($options);
 	}
 
 }

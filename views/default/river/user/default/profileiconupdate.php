@@ -1,28 +1,13 @@
 <?php
-/**
- * Update avatar river view
- */
 
-$item = $vars['item'];
-/* @var ElggRiverItem $item */
-
+$item = elgg_extract('item', $vars);
 $subject = $item->getSubjectEntity();
 
-$subject_link = elgg_view('output/url', array(
-	'href' => $subject->getURL(),
-	'text' => $subject->name,
-	'class' => 'elgg-river-subject',
-	'is_trusted' => true,
-));
+$vars['attachments'] = elgg_view_entity_icon($subject, 'large', [
+	'use_hover' => false,
+	'use_link' => false,
+		]);
 
-$string = elgg_echo('river:update:user:avatar', array($subject_link));
+$vars['message'] = false;
 
-echo elgg_view('river/elements/layout', array(
-	'item' => $item,
-	'summary' => $string,
-	'message' => false,
-	'attachments' => elgg_view_entity_icon($subject, 'large', array(
-		'use_hover' => false,
-		'use_link' => false,
-	)),
-));
+echo elgg_view('river/elements/layout', $vars);

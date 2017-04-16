@@ -7,7 +7,14 @@ if (!elgg_instanceof($entity)) {
 $summary = elgg_extract('summary', $vars);
 
 if (!isset($summary)) {
-	$subject = $entity->getOwnerEntity();
+	if ($entity instanceof ElggUser) {
+		$subject = $entity;
+	} else {
+		$subject = $entity->getOwnerEntity();
+	}
+	if (!$subject) {
+		return;
+	}
 	$subject_link = elgg_view('output/url', array(
 		'href' => $subject->getURL(),
 		'text' => $subject->getDisplayName(),
@@ -16,12 +23,15 @@ if (!isset($summary)) {
 	));
 
 	$type = $entity->getType();
-	$subtype = $entity->getSubtype() ? : 'default';
-	
+	$subtype = $entity->getSubtype() ?: 'default';
+
+	$item = elgg_extract('item', $vars);
+
 	$keys = [
 		"river:story:$type:$subtype",
 		"river:story:$type:default",
 		"river:story:$type",
+		"river:story:$item->action_type",
 		"river:story:default",
 	];
 

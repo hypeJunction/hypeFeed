@@ -28,13 +28,25 @@ if (!isset($story)) {
 				"rv.id != $item->id",
 			],
 		]);
-		if ($river) {
-			$item = array_shift($river);
-			echo elgg_view($item->getView(), [
-				'item' => $item,
-			]);
-			return;
-		}
+	} else {
+		$river = elgg_get_river([
+			'action_type' => 'create',
+			'object_guids' => [(int) $object->guid],
+			'limit' => 1,
+			'order_by' => 'rv.posted ASC',
+			'wheres' => [
+				"rv.id != $item->id",
+			],
+		]);
+	}
+
+	if ($river) {
+		$item = array_shift($river);
+		echo elgg_view($item->getView(), [
+			'item' => $item,
+			'rollup' => true,
+		]);
+		return;
 	}
 }
 

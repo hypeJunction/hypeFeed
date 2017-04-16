@@ -10,7 +10,8 @@ return [
 	'admin:upgrades:feed:populate' => 'Populate activity feeds',
 	'admin:upgrades:feed:populate:description' => 'Populates activity feed table from data in the river table',
 
-	'feed:subject:others' => ' and %s others',
+	'feed:and' => 'and',
+	'feed:subject:others' => '%s others',
 	'feed:object:this' => 'this',
 
 	'feed:aggregation_interval' => 'Aggregation interval',
@@ -36,7 +37,15 @@ return [
 	'river:join:default' => '%s joined %s',
 	'river:tag:default' => '%s tagged %s',
 	'river:friend:default' => '%s connected with %s',
-
+	'river:friend:user:default' => '%s connected with %s',
+	'river:comment:default' => '%s commented on %s',
+	'river:discussion_reply:default' => '%s replied to %s',
+	'river:profileiconupdate:default' => '%s updated their avatar',
+	'river:profileupdate:default' => '%s updated their profile',
+	'river:upload:default' => '%s uploaded %s',
+	'river:create:object:thewire' => '%s posted to the wire',
+	'river:default' => '%s',
+	
 	'river:story:default' => 'Post by %s',
 	'river:story:object:file' => 'File by %s',
 	'river:story:object:bookmarks' => 'Bookmark by %s',
@@ -48,8 +57,12 @@ return [
 	'river:story:object:comment' => 'Comment by %s',
 	'river:story:object:discussion' => 'Discussion topic by %s',
 	'river:story:object:discussion_reply' => 'Reply by %s',
+	'river:story:profileiconupdate' => '%s has a new avatar',
+	'river:story:profileupdate' => '%s updated their profile',
 
 	'river:read:less' => 'Read less',
 	'river:read:more' => 'Read more',
 
+	'feed:rollup:desc' => 'View all %s items in the rollup',
+	
 ];

@@ -4,7 +4,14 @@ if (!$item instanceof ElggRiverItem) {
 	return;
 }
 
-$summary = elgg_extract('summary', $vars);
+$rollup = elgg_extract('rollup', $vars);
+if ($rollup) {
+	$summary = elgg_view('river/elements/story/summary', $vars + [
+		'entity' => $item->getObjectEntity(),
+	]);
+} else {
+	$summary = elgg_extract('summary', $vars);
+}
 
 if (!isset($summary)) {
 
@@ -35,7 +42,11 @@ if (!isset($summary)) {
 	$users = array_unique($users);
 	$user_count = count($users);
 	if ($user_count > 1) {
-		$subject_link .= elgg_echo('feed:subject:others', [$user_count - 1]);
+		$subject_link .= ' ' . elgg_echo('feed:and') . ' ' . elgg_view('output/url', [
+					'href' => '#',
+					'text' => elgg_echo('feed:subject:others', [$user_count - 1]),
+					'class' => 'elgg-river-show-related',
+		]);
 	}
 
 	$story = $object;
@@ -50,38 +61,15 @@ if (!isset($summary)) {
 		'is_trusted' => true,
 	));
 
-	$action = $item->action_type;
-	if ($object instanceof ElggComment) {
-		$action = 'comment';
-	}
-	
-	$type = $story->getType();
-	$subtype = $story->getSubtype() ?: 'default';
-
-	$keys = [
-		"river:$action:$type:$subtype",
-		"river:$action:$type:default",
-		"river:$action:$type",
-		"river:$action:default",
-	];
-
-	foreach ($keys as $key) {
-		if (elgg_language_key_exists($key)) {
-			$summary = elgg_echo($key, array($subject_link, $story_link));
-			break;
-		}
-	}
-
-	if (!$summary) {
-		$summary = $subject_link;
-	}
+	$key = hypeJunction\Feed\Languages::getSummaryKey($item);
+	$summary = elgg_echo($key, array($subject_link, $story_link));
 
 	$container = $story->getContainerEntity();
 } else {
 	$container = $item->getObjectEntity()->getContainerEntity();
 }
 
-if ($container instanceof ElggGroup && $container->guid != elgg_get_page_owner_guid()) {
+if ($container instanceof ElggGroup && $container->guid != elgg_get_page_owner_guid() && !$rollup) {
 	$group_link = elgg_view('output/url', [
 		'href' => $container->getURL(),
 		'text' => elgg_get_excerpt($container->getDisplayName(), 100),
