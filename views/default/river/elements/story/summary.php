@@ -27,19 +27,20 @@ if (!isset($summary)) {
 
 	$item = elgg_extract('item', $vars);
 
-	$keys = [
-		"river:story:$type:$subtype",
-		"river:story:$type:default",
-		"river:story:$type",
-		"river:story:$item->action_type",
-		"river:story:default",
-	];
+	if ($item instanceof ElggRiverItem) {
+		$action = hypeJunction\Feed\FeedItem::getActionType($item);
+	}
 
-	foreach ($keys as $key) {
-		if (elgg_language_key_exists($key)) {
-			$summary = elgg_echo($key, array($subject_link));
-			break;
+	if (elgg_language_key_exists("river:story:$action")) {
+		$summary = elgg_echo("river:story:$action", array($subject_link));
+	} else {
+		if (elgg_language_key_exists("$type:$subtype")) {
+			$type_str = elgg_echo("$type:$subtype");
+		} else {
+			$type_str = elgg_echo("$type:default");
 		}
+		
+		$summary = elgg_echo('river:story:byline', [ucfirst($type_str), $subject_link]);
 	}
 }
 

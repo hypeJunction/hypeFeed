@@ -1,4 +1,7 @@
 <?php
+
+use hypeJunction\Feed\FeedItem;
+
 $item = elgg_extract('item', $vars);
 if (!$item instanceof ElggRiverItem) {
 	return;
@@ -25,7 +28,7 @@ if (!isset($summary)) {
 
 	if (!empty($related_items)) {
 		foreach ($related_items as $related_item) {
-			if ($item->action_type == $related_item->action_type) {
+			if (FeedItem::getActionType($item) == FeedItem::getActionType($related_item)) {
 				$users[] = $related_item->subject_guid;
 			}
 		}
@@ -61,7 +64,7 @@ if (!isset($summary)) {
 		'is_trusted' => true,
 	));
 
-	$key = hypeJunction\Feed\Languages::getSummaryKey($item);
+	$key = FeedItem::getSummaryKey($item);
 	$summary = elgg_echo($key, array($subject_link, $story_link));
 
 	$container = $story->getContainerEntity();

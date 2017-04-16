@@ -46,23 +46,29 @@ return [
 	'river:create:object:thewire' => '%s posted to the wire',
 	'river:default' => '%s',
 	
-	'river:story:default' => 'Post by %s',
-	'river:story:object:file' => 'File by %s',
-	'river:story:object:bookmarks' => 'Bookmark by %s',
-	'river:story:object:blog' => 'Blog post by %s',
-	'river:story:object:thewire' => 'Wire post by %s',
-	'river:story:object:page' => 'Page by %s',
-	'river:story:object:page_top' => 'Page by %s',
-	'river:story:object:hjwall' => '%s',
-	'river:story:object:comment' => 'Comment by %s',
-	'river:story:object:discussion' => 'Discussion topic by %s',
-	'river:story:object:discussion_reply' => 'Reply by %s',
 	'river:story:profileiconupdate' => '%s has a new avatar',
 	'river:story:profileupdate' => '%s updated their profile',
 
+	'river:story:byline' => '%s by %s',
+	
 	'river:read:less' => 'Read less',
 	'river:read:more' => 'Read more',
 
 	'feed:rollup:desc' => 'View all %s items in the rollup',
 	
+	'object:blog' => 'blog',
+	'object:bookmarks' => 'bookmark',
+	'object:thewire' => 'wire post',
+	'object:page' => 'page',
+	'object:page_top' => 'page',
+	'object:file' => 'file',
+	'object:comment' => 'comment',
+	'object:discussion' => 'discussion topic',
+	'object:discussion_reply' => 'reply',
+	'object:default' => 'post',
+	'object:poll' => 'poll',
+
+	'user:default' => 'user',
+	'group:default' => 'group',
+	'site:default' => 'site',
 ];
