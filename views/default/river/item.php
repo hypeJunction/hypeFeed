@@ -1,6 +1,16 @@
 <?php
 
 $item = elgg_extract('item', $vars);
+if (!$item instanceof ElggRiverItem) {
+	return;
+}
+
+$subject = $item->getSubjectEntity();
+$object = $item->getObjectEntity();
+
+if (!$subject || !$object) {
+	return;
+}
 
 if ($item instanceof \hypeJunction\Feed\FeedItem) {
 	$related_items = $item->getRelatedItems();

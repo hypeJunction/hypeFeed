@@ -57,6 +57,10 @@ if (!isset($summary)) {
 		$story = $story->getContainerEntity();
 	}
 
+	if (!$story) {
+		return;
+	}
+
 	$story_link = elgg_view('output/url', array(
 		'href' => $story->getURL(),
 		'text' => elgg_get_excerpt($story->getDisplayName(), 100),
