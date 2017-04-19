@@ -58,6 +58,37 @@ class FeedTable {
 	}
 
 	/**
+	 * Get multiple items by their ids
+	 * 
+	 * @param array $ids IDs
+	 * @return FeedItem[]
+	 */
+	public function getByIds(array $ids = []) {
+
+		foreach ($ids as &$id) {
+			$id = (int) $id;
+		}
+
+		$ids = implode(',', array_filter($ids));
+		if (!$ids) {
+			return;
+		}
+		
+		$query = "
+			SELECT DISTINCT rv.* FROM {$this->table} rv
+			WHERE rv.id IN (:ids)
+			AND rv.owner_guid = 1
+			ORDER BY rv.posted DESC
+		";
+
+		$params = [
+			':ids' => $ids,
+		];
+
+		return get_data($query, $this->row_callback, $params) ?: [];
+	}
+
+	/**
 	 * Get river items
 	 *
 	 * @param array $options Options

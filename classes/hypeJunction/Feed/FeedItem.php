@@ -50,18 +50,11 @@ class FeedItem extends ElggRiverItem {
 
 	/**
 	 * Returns related items in the roll
-	 *
-	 * @param array $options Options
-	 * @return ElggRiverItem[]|false
+	 * @return FeedItem[]
 	 */
-	public function getRelatedItems(array $options = []) {
-
-		$options['distinct'] = true;
-		$options['ids'] = $this->related_ids;
-		$options['limit'] = 0;
-		$options['order_by'] = "rv.posted DESC";
-
-		return elgg_get_river($options);
+	public function getRelatedItems() {
+		$svc = FeedService::getInstance();
+		return $svc->getTable()->getByIds($this->related_ids);
 	}
 
 	/**
@@ -102,7 +95,7 @@ class FeedItem extends ElggRiverItem {
 	 * Get object type key
 	 * 
 	 * @param ElggRiverItem $item River item
-	 * @return sting
+	 * @return string
 	 */
 	public static function getObjectTypeKey(\ElggRiverItem $item) {
 
@@ -112,6 +105,10 @@ class FeedItem extends ElggRiverItem {
 			$object = $object->getContainerEntity();
 		}
 
+		if (!$object) {
+			return '';
+		}
+		
 		$type = $object->getType();
 		$subtype = $object->getSubtype() ?: 'default';
 
