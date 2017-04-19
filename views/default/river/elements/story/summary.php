@@ -28,7 +28,7 @@ if (!isset($summary)) {
 	$item = elgg_extract('item', $vars);
 
 	if ($item instanceof ElggRiverItem) {
-		$action = hypeJunction\Feed\FeedItem::getActionType($item);
+		$action = hypeJunction\Feed\RollUp::getActionType($item);
 	}
 
 	if (elgg_language_key_exists("river:story:$action")) {

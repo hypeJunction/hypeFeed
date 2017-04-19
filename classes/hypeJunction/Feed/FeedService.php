@@ -47,7 +47,7 @@ class FeedService {
 		return $this->table;
 	}
 
-		/**
+	/**
 	 * View activity feed
 	 *
 	 * @param array $options Options
@@ -98,7 +98,7 @@ class FeedService {
 	 * @param ElggRiverItem $item  River item
 	 * @return void
 	 */
-	public static function addRiverItem($event, $type, $item) {		
+	public static function addRiverItem($event, $type, $item) {
 		$svc = self::getInstance();
 		$svc->getTable()->insert($item);
 	}
@@ -111,9 +111,9 @@ class FeedService {
 	 * @param ElggRiverItem $river River item
 	 * @return void
 	 */
-	public static function removeRiverItem($event, $type, $river) {
+	public static function removeRollup($event, $type, $river) {
 		$svc = self::getInstance();
-		$svc->getTable()->deleteByRiverId($item->id);
+		$svc->getTable()->deleteByRiverId($river->id);
 	}
 
 	/**
@@ -129,8 +129,16 @@ class FeedService {
 		$svc = self::getInstance();
 		if ($object instanceof ElggEntity) {
 			$svc->getTable()->deleteByEntityGUID($object->guid);
-		} else if ($object instanceof \ElggAnnotation) {
-			$svc->getTable()->deleteByAnnotationID($object->id);
+			$river = elgg_get_river([
+				'wheres' => [
+					"$object->guid IN (rv.subject_guid, rv.object_guid, rv.target_guid)",
+				],
+				'limit' => 0,
+				'batch' => true,
+			]);
+			foreach ($river as $river_item) {
+				$svc->getTable()->deleteByRiverId($river_item->id);
+			}
 		}
 	}
 
@@ -146,12 +154,30 @@ class FeedService {
 		$svc = self::getInstance();
 		if ($object instanceof ElggEntity) {
 			$attributes = $object->getOriginalAttributes();
-			if (array_key_exists('access_id', $attributes) || array_key_exists('owner_guid', $attributes)) {
-				$svc->getTable()->updateAccess($object);
+			if (array_key_exists('owner_guid', $attributes) || array_key_exists('container_guid', $attributes)) {
+				$river = elgg_get_river([
+					'wheres' => [
+						"$object->guid IN (rv.subject_guid, rv.object_guid, rv.target_guid)",
+					],
+					'limit' => 0,
+					'batch' => true,
+				]);
+				foreach ($river as $river_item) {
+					$svc->getTable()->update($river_item);
+				}
 			}
 		} else if ($object instanceof ElggData) {
-			$svc->getTable()->updateAccess($object);
+			$river = elgg_get_river([
+				'wheres' => [
+					"rv.annotation_id = $object->id",
+				],
+				'limit' => 0,
+				'batch' => true,
+			]);
+			foreach ($river as $river_item) {
+				$svc->getTable()->update($river_item);
+			}
 		}
 	}
-	
+
 }

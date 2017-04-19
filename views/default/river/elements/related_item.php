@@ -17,10 +17,10 @@ $subject_link = elgg_view('output/url', array(
 		));
 
 
-$object_key = hypeJunction\Feed\FeedItem::getObjectTypeKey($item);
+$object_key = hypeJunction\Feed\RollUp::getObjectTypeKey($item);
 $object_link = elgg_echo('feed:object:this') . ' ' . elgg_echo($object_key);
 
-$key = hypeJunction\Feed\FeedItem::getSummaryKey($item, true);
+$key = hypeJunction\Feed\RollUp::getSummaryKey($item, true);
 $summary = elgg_echo($key, [$subject_link, $object_link]);
 
 $menu = elgg_view('river/elements/menu', $vars);

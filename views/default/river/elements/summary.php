@@ -1,6 +1,6 @@
 <?php
 
-use hypeJunction\Feed\FeedItem;
+use hypeJunction\Feed\RollUp;
 
 $item = elgg_extract('item', $vars);
 if (!$item instanceof ElggRiverItem) {
@@ -20,7 +20,7 @@ if (!isset($summary)) {
 
 	$object = $item->getObjectEntity();
 	$related_items = elgg_extract('related_items', $vars);
-	/* @var $related_items FeedItem[] */
+	/* @var $related_items RollUp[] */
 
 	$users = [
 		$item->subject_guid,
@@ -28,7 +28,7 @@ if (!isset($summary)) {
 
 	if (!empty($related_items)) {
 		foreach ($related_items as $related_item) {
-			if (FeedItem::getActionType($item) == FeedItem::getActionType($related_item)) {
+			if (RollUp::getActionType($item) == RollUp::getActionType($related_item)) {
 				$users[] = $related_item->subject_guid;
 			}
 		}
@@ -68,7 +68,7 @@ if (!isset($summary)) {
 		'is_trusted' => true,
 	));
 
-	$key = FeedItem::getSummaryKey($item);
+	$key = RollUp::getSummaryKey($item);
 	$summary = elgg_echo($key, array($subject_link, $story_link));
 
 	$container = $story->getContainerEntity();

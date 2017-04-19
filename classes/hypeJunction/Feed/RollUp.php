@@ -8,7 +8,7 @@ use ElggRiverItem;
 use InvalidParameterException;
 use stdClass;
 
-class FeedItem extends ElggRiverItem {
+class RollUp extends ElggRiverItem {
 
 	protected $related_ids;
 
@@ -26,17 +26,8 @@ class FeedItem extends ElggRiverItem {
 
 		// the casting is to support typed serialization like json
 		$int_types = [
-			'id',
 			'story_guid',
 			'owner_guid',
-			'subject_guid',
-			'object_guid',
-			'target_guid',
-			'annotation_id',
-			'access_guid',
-			'access_owner_guid',
-			'access_id',
-			'posted',
 		];
 
 		foreach ($object as $key => $value) {
@@ -46,15 +37,27 @@ class FeedItem extends ElggRiverItem {
 				$this->$key = $value;
 			}
 		}
+
+		parent::__construct($object);
 	}
 
 	/**
 	 * Returns related items in the roll
-	 * @return FeedItem[]
+	 * @return RollUp[]
 	 */
 	public function getRelatedItems() {
-		$svc = FeedService::getInstance();
-		return $svc->getTable()->getByIds($this->related_ids);
+		if (empty($this->related_ids) || sizeof($this->related_ids) == 1) {
+			return;
+		}
+		// access has already been validated on these when fetching related ids
+		$ia = elgg_set_ignore_access(true);
+		$items = elgg_get_river([
+			'ids' => $this->related_ids,
+			'order_by' => 'rv.posted DESC',
+		]);
+		elgg_set_ignore_access($ia);
+
+		return $items;
 	}
 
 	/**

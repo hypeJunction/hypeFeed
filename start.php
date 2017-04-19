@@ -22,7 +22,7 @@ elgg_register_event_handler('init', 'system', function() {
 
 	elgg_register_event_handler('created', 'river', [FeedService::class, 'addRiverItem'], 999);
 
-	elgg_register_event_handler('delete:after', 'river', [FeedService::class, 'removeRiverItem'], 999);
+	elgg_register_event_handler('delete:after', 'river', [FeedService::class, 'removeRollup'], 999);
 	elgg_register_event_handler('update', 'all', [FeedService::class, 'entityUpdateHandler'], 999);
 	elgg_register_event_handler('delete', 'all', [FeedService::class, 'entityDeleteHandler'], 999);
 
@@ -36,4 +36,4 @@ elgg_register_event_handler('upgrade', 'system', function() {
 		return;
 	}
 	require __DIR__ . '/lib/upgrades.php';
-});
+}, 1);

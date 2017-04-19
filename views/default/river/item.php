@@ -12,7 +12,7 @@ if (!$subject || !$object) {
 	return;
 }
 
-if ($item instanceof \hypeJunction\Feed\FeedItem) {
+if ($item instanceof \hypeJunction\Feed\RollUp) {
 	$related_items = $item->getRelatedItems();
 	if (!empty($related_items)) {
 		$item = array_shift($related_items);

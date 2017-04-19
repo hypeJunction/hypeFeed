@@ -43,7 +43,6 @@ return [
 	'river:profileiconupdate:default' => '%s updated their avatar',
 	'river:profileupdate:default' => '%s updated their profile',
 	'river:upload:default' => '%s uploaded %s',
-	'river:create:object:thewire' => '%s posted to the wire',
 	'river:default' => '%s',
 	
 	'river:story:profileiconupdate' => '%s has a new avatar',
