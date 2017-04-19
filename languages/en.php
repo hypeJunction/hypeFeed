@@ -48,6 +48,7 @@ return [
 	
 	'river:story:profileiconupdate' => '%s has a new avatar',
 	'river:story:profileupdate' => '%s updated their profile',
+	'river:story:stream:like' => '%s liked a post',
 
 	'river:story:byline' => '%s by %s',
 	
