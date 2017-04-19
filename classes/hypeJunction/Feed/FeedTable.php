@@ -225,15 +225,16 @@ class FeedTable {
 			}
 
 			if ($relationship) {
-				$relationship = sanitize_string($relationship);
-				$rel_where .= " AND relationship = '$relationship'";
+				$relationships = (array) $relationship;
+				foreach ($relationships as &$relationship) {
+					$relationship = "'" . sanitize_string($relationship) . "'";
+				}
+
+				$in_relationship = implode(',', $relationships);
+				$rel_where .= " AND relationship IN ($in_relationship)";
 			}
 
-			$wheres[] = "
-				EXISTS (SELECT 1
-					FROM {$dbprefix}entity_relationships
-					WHERE $rel_where)
-				";
+			$wheres[] = "EXISTS (SELECT 1 FROM {$dbprefix}entity_relationships WHERE $rel_where) AND feeds.owner_guid != 1";
 		} else if ($owner) {
 			$wheres[] = "feeds.owner_guid = $owner->guid";
 		}
@@ -278,10 +279,10 @@ class FeedTable {
 
 		$river_select = $this->getRiverQuery($options);
 
-		$wheres = sanitize_string(implode(' AND ', $wheres));
-		$joins = sanitize_string(implode(' ', $joins));
-		$selects = sanitize_string(implode(', ', $selects));
-		$group_by = sanitize_string(implode(', ', $group_by));
+		$wheres = implode(' AND ', $wheres);
+		$joins = implode(' ', $joins);
+		$selects = implode(', ', $selects);
+		$group_by = implode(', ', $group_by);
 
 		$query = "
 			SELECT $selects

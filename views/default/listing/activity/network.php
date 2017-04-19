@@ -10,17 +10,9 @@ $options['owner'] = false;
 $owner_guid = (int) $owner->guid;
 
 $dbprefix = elgg_get_config('dbprefix');
-$options['wheres'][] = "
-	rv.owner_guid IN (
-		SELECT guid_two
-		FROM {$dbprefix}entity_relationships
-		WHERE guid_one = $owner_guid
-		AND relationship IN ('friend','member')
-	)
-	";
-
-$site_guid = (int) elgg_get_site_entity()->guid;
-$options['wheres'][] = "rv.owner_guid != $site_guid";
+$options['relationship'] = ['friend', 'member'];
+$options['relationship_guid'] = $owner_guid;
+$options['inverse_relationship'] = false;
 
 $options['no_results'] = elgg_echo('river:none');
 $options['pagination'] = true;
