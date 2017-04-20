@@ -14,7 +14,7 @@ if (!elgg_get_plugin_setting('upgrade_schema', 'hypeFeed')) {
 		$upgrade->delete();
 	}
 	
-	elgg_set_plugin_setting('upgrade_scheme', time(), 'hypeFeed');
+	elgg_set_plugin_setting('upgrade_schema', time(), 'hypeFeed');
 }
 
 // Setup MySQL databases
