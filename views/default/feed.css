@@ -1,6 +1,7 @@
 .elgg-river-related-items {
 	display: none;
 }
+
 .elgg-river-badge {
     display: inline-block;
     color: #fff;
@@ -10,11 +11,69 @@
     border-radius: 50%;
     line-height: 11px;
 }
+
 .elgg-river-related-items > li {
     border-bottom: 1px solid #dcdcdc;
     padding: 5px 15px;
 }
+
 .elgg-river-related-items > li .elgg-river-subtitle {
     display: inline-block;
     margin-left: 15px;
+}
+
+.elgg-list.elgg-list-river {
+    border: none;
+}
+
+.elgg-list-river > li {
+    border: 1px solid #dcdcdc;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.elgg-river-item > .elgg-image-block {
+    padding: 15px;
+}
+
+.elgg-river-item > .elgg-river-header {
+    background: #fafafa;
+}
+
+.elgg-river-item.elgg-river-rollup > .elgg-river-header {
+    border-bottom: 1px solid #eee;
+    background: transparent;
+}
+
+.elgg-river-attachments, .elgg-river-message, .elgg-river-content {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.elgg-river-footer {
+    padding: 5px;
+}
+
+.elgg-river-body {
+    padding: 5px;
+}
+
+.elgg-river-attachments img, .elgg-river-attachments .elgg-avatar > a > img {
+    width: auto;
+}
+
+.elgg-river-item .elgg-output {
+    margin: 0;
+}
+
+.elgg-river-message + * {
+}
+
+.elgg-river-message {
+    padding: 10px;
+}
+
+.elgg-river-attachments {
+    padding: 0 10px;
 }
