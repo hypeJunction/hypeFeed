@@ -31,6 +31,7 @@ return [
 	'river:create:object:comment' => '%s commented on %s',
 	'river:create:object:discussion_reply' => '%s replied on the discussion topic %s',
 	'river:create:default' => '%s posted %s',
+	'river:create:object:thewire' => '%s posted to the wire',
 	'river:reply:default' => '%s replied to %s',
 	'river:vote:default' => '%s voted in %s',
 	'river:complete:default' => '%s completed %s',
