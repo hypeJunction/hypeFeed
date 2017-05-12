@@ -1,3 +1,17 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/hypeJunction/hypeFeed/compare/1.0.2...v1.0.3) (2017-05-12)
+
+
+### Bug Fixes
+
+* **languages:** add wire post created string ([519806b](https://github.com/hypeJunction/hypeFeed/commit/519806b))
+
+### Features
+
+* **css:** add some basic styling ([cc2591c](https://github.com/hypeJunction/hypeFeed/commit/cc2591c))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/hypeJunction/hypeFeed/compare/1.0.1...v1.0.2) (2017-04-20)
 
