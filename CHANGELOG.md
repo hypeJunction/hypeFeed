@@ -1,3 +1,13 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/hypeJunction/hypeFeed/compare/1.0.4...v1.0.5) (2017-06-07)
+
+
+### Bug Fixes
+
+* **upgrade:** always check if upgrades are necessary ([4a27d9d](https://github.com/hypeJunction/hypeFeed/commit/4a27d9d))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/hypeJunction/hypeFeed/compare/1.0.3...v1.0.4) (2017-06-07)
 
