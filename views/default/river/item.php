@@ -24,4 +24,16 @@ if ($item instanceof \hypeJunction\Feed\RollUp) {
 	}
 }
 
+global $_elgg_special_river_catch;
+if (!isset($_elgg_special_river_catch)) {
+	$_elgg_special_river_catch = false;
+}
+if ($_elgg_special_river_catch) {
+	echo elgg_view('river/elements/layout', $vars);
+	return;
+}
+$_elgg_special_river_catch = true;
+
 echo elgg_view($item->getView(), $vars);
+
+$_elgg_special_river_catch = false;
