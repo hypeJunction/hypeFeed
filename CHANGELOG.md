@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/hypeJunction/hypeFeed/compare/1.0.5...v1.0.6) (2017-08-01)
+
+
+### Bug Fixes
+
+* **readmore:** prevent auto-collapsing readmore ([fd0129b](https://github.com/hypeJunction/hypeFeed/commit/fd0129b))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/hypeJunction/hypeFeed/compare/1.0.4...v1.0.5) (2017-06-07)
 
