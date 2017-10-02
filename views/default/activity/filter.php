@@ -13,7 +13,7 @@ foreach ($tabs as &$tab) {
 	}
 }
 
-echo elgg_view_menu('filter:ctivity', [
+echo elgg_view_menu('filter:activity', [
 	'sort_by' => 'priority',
 	'items' => $tabs,
 	'class' => 'elgg-menu-hz elgg-menu-filter',
