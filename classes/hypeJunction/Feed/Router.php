@@ -15,6 +15,12 @@ class Router {
 
 		$page = array_shift($segments);
 
+		if (!$page) {
+			$tabs = Config::getTabs(true);
+			$main_tab = array_pop(array_reverse($tabs));
+			$page = $main_tab->getName();
+		}
+
 		switch ($page) {
 			default :
 			case 'all' :
