@@ -16,7 +16,7 @@ class Menus {
 	public static function setupRiverMenu($hook, $type, $menu, $params) {
 
 		$item = elgg_extract('item', $params);
-		$related_items = $item->related_items;
+		$related_items = (array) $item->related_items;
 		if (count($related_items) < 2) {
 			return;
 		}
